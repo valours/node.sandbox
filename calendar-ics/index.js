@@ -10,7 +10,12 @@ app.get('/', function (req, res) {
 app.get('/cal', async function(req, res) {
   const calendar = await calendarRepository.getCalendar();
   console.log('calendar', calendar);
-  res.send(calendar);
+  const { filename } = calendar;
+  const options = {
+    root: __dirname + '/files/',
+  }
+  console.log(filename);
+  res.sendFile(__dirname + '/files/' + filename);
 });
 
 app.listen(3000, function () {

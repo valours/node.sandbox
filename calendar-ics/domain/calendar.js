@@ -6,13 +6,18 @@ const data = require('../data/events');
 const repository = {
   getCalendar: async () => {
     return new Promise(resolve => {
-      ics.createEvent(data[0], (err, value) => {
+      const indexEvent = 0;
+      const filename = `event_${indexEvent}.ics`
+      const path = `/files/${filename}`;
+      ics.createEvent(data[indexEvent], (err, value) => {
         if(err) {
           console.log(err);
         };
-        writeFileSync(`./event.ics`, value);
-        resolve(value);
-
+        writeFileSync('.' + path, value);
+        resolve({
+          filename,
+          path
+        });
       })
     })
   },
