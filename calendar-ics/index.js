@@ -1,13 +1,16 @@
 const express = require('express')
 const app = express()
 
-const data = require('./data/events');
+const calendarRepository = require ('./domain/calendar');
+
 app.get('/', function (req, res) {
   res.send('Calendar ics')
 })
 
-app.get('/cal', function(req, res) {
-  res.send(data)
+app.get('/cal', async function(req, res) {
+  const calendar = await calendarRepository.getCalendar();
+  console.log('calendar', calendar);
+  res.send(calendar);
 });
 
 app.listen(3000, function () {
